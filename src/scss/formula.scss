@@ -1,3 +1,19 @@
 .spreadsheet__formula {
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  border-bottom: 1px solid $border-hover;
 
+  & .formula__label {
+    flex-basis: 30px;
+    border-right: 1px solid $border-hover;
+    margin-right: 10px;
+    font-style: italic;
+    color: #888;
+    text-align: center;
+  }
+
+  & .formula__input {
+    flex: 1 1 auto;
+  }
 }
