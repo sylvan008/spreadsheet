@@ -1,0 +1,25 @@
+@mixin button($color, $isBorder: true) {
+  position: relative;
+  display: inline-block;
+  padding: 3px;
+  border-radius: 4px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.7);
+  background: transparent;
+
+  @if $isBorder {
+    border: 1px solid $border-hover;
+  } @else  {
+    border: none;
+  }
+
+  &:active,
+  &.active {
+    color: $color;
+  }
+
+  &:hover {
+    background: #eee;
+    cursor: pointer;
+  }
+}

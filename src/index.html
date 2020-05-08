@@ -5,8 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spreadsheet</title>
   <link id="favicon" rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<div id="app"></div>
+  <div id="app">
+    <div class="spreadsheet">
+      <div class="companion">
+        <div class="spreadsheet__header">
+          <div class="header__filename">
+            <input type="text" value="Новая таблица">
+          </div>
+          <div class="header__control">
+            <button class="btn">
+              <i class="material-icons">delete</i>
+            </button>
+            <button class="btn">
+              <i class="material-icons">exit_to_app</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="spreadsheet__toolbar">
+
+        </div>
+
+        <div class="spreadsheet__formula">
+
+        </div>
+      </div>
+
+      <div class="spreadsheet__table"></div>
+    </div>
+  </div>
 </body>
 </html>
