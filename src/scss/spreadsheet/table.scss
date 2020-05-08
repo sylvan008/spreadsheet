@@ -1,0 +1,57 @@
+.spreadsheet__table {
+  position: fixed;
+  top: $companion-height;
+  left: 0;
+  right: 0;
+  padding: 0;
+  overflow-x: auto;
+
+  .row {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .column,
+  .row-num {
+    border: 1px solid $border-hover;
+    border-top: 0;
+    border-left: 0;
+    text-align: center;
+    color: #888;
+    background: #f8f9fa;
+    cursor: default;
+  }
+
+  .row-num {
+    width: 25px;
+    text-align: center;
+  }
+
+  .row-data {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .cell,
+  .column {
+    width: $cell-width;
+  }
+
+  .cell {
+    min-height: $cell-min-height;
+    min-width: $cell-min-width;
+    padding: 2px;
+    border: 1px solid #e2e3e3;
+    border-top: 0;
+    border-left: 0;
+    color: #111;
+    white-space: nowrap;
+    outline: 0;
+
+    &.selected {
+      border: 0;
+      outline: 2px solid #3c74ff;
+      z-index: 2;
+    }
+  }
+}

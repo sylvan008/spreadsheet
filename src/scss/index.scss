@@ -13,6 +13,4 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-@import "table";
-@import "toolbar";
-@import "formula";
+@import "./spreadsheet/spreadsheet";
