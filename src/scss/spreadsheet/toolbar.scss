@@ -1,0 +1,12 @@
+.spreadsheet__toolbar {
+  padding: 5px 0;
+  border-bottom: 1px solid $border-hover;
+  .btn {
+    @include button(green, false);
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn:not(:last-child) {
+    margin-right: 5px;
+  }
+}

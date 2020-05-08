@@ -1,0 +1,35 @@
+.spreadsheet__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid $border-hover;
+
+  .header__control {
+    display: flex;
+    align-items: center;
+    .btn {
+      @include button(red, false);
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+    }
+  }
+
+  .header__filename {
+    input {
+      padding: 2px 7px;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: $text-color;
+
+      &:focus {
+        border: 2px solid $focus!important;
+      }
+      &:hover {
+        border: 1px solid $border-hover;
+      }
+    }
+  }
+}
