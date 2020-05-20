@@ -3,6 +3,7 @@
   top: $companion-height;
   left: 0;
   right: 0;
+  bottom: 0;
   padding: 0;
   overflow-x: auto;
 
@@ -23,7 +24,7 @@
   }
 
   .row-num {
-    width: 25px;
+    flex: 0 0 35px;
     text-align: center;
   }
 
