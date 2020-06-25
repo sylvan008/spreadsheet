@@ -7,21 +7,36 @@ function toChar(_, index) {
   return String.fromCharCode(CODES.A + index);
 }
 
-function createRow(content, index) {
+function createRow(content, index = 0) {
+  const resize = index
+    ? `<div class="row-resize" data-resize-direction="row"></div>`
+    : '';
+  const resizable = index ? `data-type="resizable"` : '';
   return `
-    <div class="row">
-      <div class="row-num">${index ? index : ''}</div>
+    <div class="row" ${resizable} data-row-index="${index}">
+      <div class="row-num">
+        ${index ? index : ''}
+        ${resize}
+      </div>
       <div class="row-data">${content}</div>
     </div>
   `;
 }
 
-function toColumn(col) {
-  return `<div class="column">${col}</div>`;
+function toColumn(col, index) {
+  return `
+    <div class="column" data-type="resizable" data-col-index="${index}">
+      ${col}
+      <div class="col-resize" data-resize-direction="col"></div>
+    </div>
+  `;
 }
 
-function toCell(content = '') {
-  return `<div class="cell" tabindex="0" contenteditable>${content}</div>`;
+function toCell(content = '', index) {
+  return `
+    <div class="cell" tabindex="0" contenteditable data-col-index="${index}">
+      ${content}
+    </div>`;
 }
 
 export function createTable(rowsCount = 30) {
