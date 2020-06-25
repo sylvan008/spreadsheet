@@ -9,6 +9,13 @@ class DOMHelper {
   }
 
   /**
+   * @return {DOMStringMap}
+   */
+  get data() {
+    return this.$nativeElement.dataset;
+  }
+
+  /**
    * @method append
    * @param {DOMHelper|HTMLElement} node
    * @return {DOMHelper}
@@ -19,6 +26,28 @@ class DOMHelper {
     }
     this.$nativeElement.append(node);
     return this;
+  }
+
+  attr(attributeName, value) {
+    if (arguments.length === 1) {
+      return this.$nativeElement.getAttribute(attributeName);
+    } else if (arguments.length === 2) {
+      this.$nativeElement.setAttribute(attributeName, value);
+    }
+
+    return undefined;
+  }
+
+  /**
+   * @method children
+   * @param {string} selector
+   * @return {HTMLElement[]}
+   */
+  children(selector = '') {
+    if (selector) {
+      return [...this.$nativeElement.querySelectorAll(selector)];
+    }
+    return [...this.$nativeElement.children];
   }
 
   /**
@@ -35,12 +64,48 @@ class DOMHelper {
   }
 
   /**
+   * @method closest
+   * @param {string} selector
+   * @return {DOMHelper}
+   */
+  closest(selector) {
+    return $(this.$nativeElement.closest(selector));
+  }
+
+
+  /**
+   * @method css
+   * @param {object} styles
+   * @param {string} styles.key
+   */
+  css(styles = {}) {
+    Object.assign(this.$nativeElement.style, styles);
+  }
+
+  /**
    * @method clear
    * @return {DOMHelper}
    */
   clear() {
     this.html('');
     return this;
+  }
+
+  /**
+   * @method findAll
+   * @param {string} selector
+   * @return {HTMLElement[]}
+   */
+  findAll(selector) {
+    return [...this.$nativeElement.querySelectorAll(selector)];
+  }
+
+  /**
+   * @method getCoord
+   * @return {Object} Html block coordinates
+   */
+  getCoord() {
+    return this.$nativeElement.getBoundingClientRect();
   }
 
   /**
@@ -54,6 +119,22 @@ class DOMHelper {
       return this;
     }
     return this.$nativeElement.outerHTML.trim();
+  }
+
+  /**
+   * @method index
+   * @param {string|HTMLElement} prop
+   * @return {number}
+   */
+  index(prop = this.$nativeElement) {
+    const children = [...prop.parentNode.children];
+    for (let i = 0; i < children.length; i++) {
+      if ((children[i].nodeType === Node.ELEMENT_NODE)
+        && (children[i] === prop)) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   /**
