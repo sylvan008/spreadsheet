@@ -64,6 +64,22 @@ class DOMHelper {
   }
 
   /**
+   * @method addClass
+   * @param {string} className
+   */
+  addClass(className) {
+    this.$nativeElement.classList.add(className);
+  }
+
+  /**
+   * @method removeClass
+   * @param {string} className
+   */
+  removeClass(className) {
+    this.$nativeElement.classList.remove(className);
+  }
+
+  /**
    * @method closest
    * @param {string} selector
    * @return {DOMHelper}
@@ -89,6 +105,15 @@ class DOMHelper {
   clear() {
     this.html('');
     return this;
+  }
+
+  /**
+   * @method find
+   * @param {string} selector
+   * @return {DOMHelper|HTMLElement}
+   */
+  find(selector) {
+    return $(this.$nativeElement.querySelector(selector));
   }
 
   /**

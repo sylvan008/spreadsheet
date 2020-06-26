@@ -2,6 +2,12 @@ export function shouldResize(event) {
   return Boolean(event.target.dataset.resizeDirection);
 }
 
+export function includesClass(event, className) {
+  return Array.prototype.includes.call(
+      event.target.classList, className
+  );
+}
+
 export function throttle(fn, time) {
   let isThrottled = false;
   let savedArgs;
