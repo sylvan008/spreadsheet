@@ -1,6 +1,6 @@
 import {$} from '@core/helpers/DOMHelper';
 import {throttle} from './table.helpers';
-
+// TODO Wrong position the col-resize element if move it fast
 /**
  * @function
  * @param {DOMHelper} $root

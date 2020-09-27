@@ -1,3 +1,5 @@
+import {range} from '@core/utils';
+
 export function shouldResize(event) {
   return Boolean(event.target.dataset.resizeDirection);
 }
@@ -38,4 +40,17 @@ export function throttle(fn, time) {
   }
 
   return wrapper;
+}
+
+export function matrix($current, $target) {
+  const current = $current.dataId(true);
+  const target = $target.dataId(true);
+
+  const rowIds = range(current.row, target.row);
+  const colIds = range(current.col, target.col);
+
+  return rowIds.reduce((acc, row) => {
+    colIds.forEach(col => acc.push(`${row}:${col}`));
+    return acc;
+  }, []);
 }

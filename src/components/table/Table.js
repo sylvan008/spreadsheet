@@ -1,8 +1,8 @@
 import Component from '@core/Component';
-import {createTable} from '@/components/table/table.template';
-import {isCell, shouldResize} from './table.helpers';
-import tableResize from './table.resize';
 import {$} from '@core/helpers/DOMHelper';
+import {createTable} from '@/components/table/table.template';
+import tableResize from './table.resize';
+import {isCell, shouldResize, matrix} from './table.helpers';
 import TableSelector from '@/components/table/TableSelector';
 
 export default class Table extends Component {
@@ -38,9 +38,11 @@ export default class Table extends Component {
       tableResize(this.$root, event);
     } else if (isCell(event)) {
       const $target = $(event.target);
+
       if (event.shiftKey) {
-        matrix(this.selector.$current, $target);
-        console.log();
+        const ids = matrix(this.selector.$current, $target);
+        const $cells = ids.map(id => this.$root.find(`[data-id="${id}"]`));
+        this.selector.selectGroup($cells);
       } else {
         this.selector.select($target);
       }
@@ -48,7 +50,7 @@ export default class Table extends Component {
   }
 
   onKeydown(event) {
-    if (isCell(event)) {
+    if (isCell(event)) { // TODO fires when any key is pressed
       this.selector.moveSelect($(event.target), event.keyCode);
     }
   }
