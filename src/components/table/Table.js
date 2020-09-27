@@ -1,6 +1,6 @@
 import Component from '@core/Component';
 import {createTable} from '@/components/table/table.template';
-import {includesClass, shouldResize} from './table.helpers';
+import {isCell, shouldResize} from './table.helpers';
 import tableResize from './table.resize';
 import {$} from '@core/helpers/DOMHelper';
 import TableSelector from '@/components/table/TableSelector';
@@ -9,7 +9,7 @@ export default class Table extends Component {
   constructor($root) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown'],
+      listeners: ['mousedown', 'keydown'],
     });
     this.tableClassName = 'spreadsheet__table';
   }
@@ -36,8 +36,20 @@ export default class Table extends Component {
   onMousedown(event) {
     if (shouldResize(event)) {
       tableResize(this.$root, event);
-    } else if (includesClass(event, 'cell')) {
-      this.selector.select($(event.target));
+    } else if (isCell(event)) {
+      const $target = $(event.target);
+      if (event.shiftKey) {
+        matrix(this.selector.$current, $target);
+        console.log();
+      } else {
+        this.selector.select($target);
+      }
+    }
+  }
+
+  onKeydown(event) {
+    if (isCell(event)) {
+      this.selector.moveSelect($(event.target), event.keyCode);
     }
   }
 }

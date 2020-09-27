@@ -8,6 +8,10 @@ export function includesClass(event, className) {
   );
 }
 
+export function isCell(event) {
+  return event.target.dataset.type === 'cell';
+}
+
 export function throttle(fn, time) {
   let isThrottled = false;
   let savedArgs;

@@ -38,7 +38,10 @@ function toCell(row) {
       <div
         class="cell"
         tabindex="0"
+        role="textbox"
+        aria-multiline="true"
         contenteditable
+        data-type="cell"
         data-col-index="${index}"
         data-id="${row}:${index}">
         ${content}

@@ -38,6 +38,10 @@ class DOMHelper {
     return undefined;
   }
 
+  blur() {
+    this.$nativeElement.blur();
+  }
+
   /**
    * @method children
    * @param {string} selector
@@ -69,14 +73,6 @@ class DOMHelper {
    */
   addClass(className) {
     this.$nativeElement.classList.add(className);
-  }
-
-  /**
-   * @method removeClass
-   * @param {string} className
-   */
-  removeClass(className) {
-    this.$nativeElement.classList.remove(className);
   }
 
   /**
@@ -125,6 +121,15 @@ class DOMHelper {
     return [...this.$nativeElement.querySelectorAll(selector)];
   }
 
+  focus() {
+    if (this.$nativeElement.nodeName === 'DIV') {
+      console.log(this.$nativeElement);
+      this.$nativeElement.click();
+    } else {
+      this.$nativeElement.focus();
+    }
+  }
+
   /**
    * @method getCoord
    * @return {Object} Html block coordinates
@@ -147,6 +152,23 @@ class DOMHelper {
   }
 
   /**
+   * @method dataId
+   * @param {boolean} parse
+   * @return {string|{col: number, row: number}}
+   */
+  dataId(parse = false) {
+    const {id} = this.$nativeElement.dataset;
+    if (parse) {
+      const [row, col] = id.split(':');
+      return {
+        row: +row,
+        col: +col,
+      };
+    }
+    return id;
+  }
+
+  /**
    * @method index
    * @param {string|HTMLElement} prop
    * @return {number}
@@ -160,6 +182,14 @@ class DOMHelper {
       }
     }
     return -1;
+  }
+
+  /**
+   * @method nextSibling
+   * @return {DOMHelper|HTMLElement}
+   */
+  nextSibling() {
+    return $(this.$nativeElement.nextElementSibling);
   }
 
   /**
@@ -182,6 +212,22 @@ class DOMHelper {
   of(event, callback) {
     this.$nativeElement.removeEventListener(event, callback);
     return this;
+  }
+
+  /**
+   * @method previousSibling
+   * @return {DOMHelper|HTMLElement}
+   */
+  previousSibling() {
+    return $(this.$nativeElement.previousElementSibling);
+  }
+
+  /**
+   * @method removeClass
+   * @param {string} className
+   */
+  removeClass(className) {
+    this.$nativeElement.classList.remove(className);
   }
 }
 
