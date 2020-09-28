@@ -1,4 +1,14 @@
 import {range} from '@core/utils';
+import {keysKeyboard} from '@core/keys';
+
+const {
+  TAB,
+  ENTER,
+  ARROW_UP,
+  ARROW_RIGHT,
+  ARROW_DOWN,
+  ARROW_LEFT,
+} = keysKeyboard;
 
 export function shouldResize(event) {
   return Boolean(event.target.dataset.resizeDirection);
@@ -53,4 +63,26 @@ export function matrix($current, $target) {
     colIds.forEach(col => acc.push(`${row}:${col}`));
     return acc;
   }, []);
+}
+
+export function nextSelector(key, {row, col}) {
+  switch (key) {
+    case TAB:
+    case ARROW_RIGHT:
+      col++;
+      break;
+    case ENTER:
+    case ARROW_DOWN:
+      row++;
+      break;
+    case ARROW_LEFT:
+      col--;
+      break;
+    case ARROW_UP:
+      row--;
+      break;
+  }
+
+  const ifLessZero = value => value < 0 ? 0 : value;
+  return `[data-id="${ifLessZero(row)}:${ifLessZero(col)}"]`;
 }

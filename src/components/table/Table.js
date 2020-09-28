@@ -2,8 +2,9 @@ import Component from '@core/Component';
 import {$} from '@core/helpers/DOMHelper';
 import {createTable} from '@/components/table/table.template';
 import tableResize from './table.resize';
-import {isCell, shouldResize, matrix} from './table.helpers';
+import {isCell, shouldResize, matrix, nextSelector} from './table.helpers';
 import TableSelector from '@/components/table/TableSelector';
+import {keysKeyboard} from '@core/keys';
 
 export default class Table extends Component {
   constructor($root) {
@@ -50,8 +51,22 @@ export default class Table extends Component {
   }
 
   onKeydown(event) {
+    const keys = [
+      keysKeyboard.ENTER,
+      keysKeyboard.TAB,
+      keysKeyboard.ARROW_UP,
+      keysKeyboard.ARROW_RIGHT,
+      keysKeyboard.ARROW_DOWN,
+      keysKeyboard.ARROW_LEFT,
+    ];
+    const {key} = event;
     if (isCell(event)) { // TODO fires when any key is pressed
-      this.selector.moveSelect($(event.target), event.keyCode);
+      if (keys.includes(key) && !event.shiftKey) { // TODO tab + shift
+        event.preventDefault();
+        const id = this.selector.$current.dataId(true);
+        const $nextCell = this.$root.find(nextSelector(key, id));
+        this.selector.select($nextCell);
+      }
     }
   }
 }

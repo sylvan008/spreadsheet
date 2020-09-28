@@ -122,12 +122,8 @@ class DOMHelper {
   }
 
   focus() {
-    if (this.$nativeElement.nodeName === 'DIV') {
-      console.log(this.$nativeElement);
-      this.$nativeElement.click();
-    } else {
-      this.$nativeElement.focus();
-    }
+    this.$nativeElement.focus();
+    return this;
   }
 
   /**
