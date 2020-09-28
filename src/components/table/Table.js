@@ -6,11 +6,18 @@ import {isCell, shouldResize, matrix, nextSelector} from './table.helpers';
 import TableSelector from '@/components/table/TableSelector';
 import {keysKeyboard} from '@core/keys';
 
+/**
+ * @class Table
+ * @extends Component
+ * @param {DOMHelper} $root
+ * @param {object} options
+ */
 export default class Table extends Component {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
       listeners: ['mousedown', 'keydown'],
+      ...options,
     });
     this.tableClassName = 'spreadsheet__table';
   }
@@ -24,6 +31,11 @@ export default class Table extends Component {
     super.init();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selector.select($cell);
+
+    this.emitter.subscribe(
+        'updateFormula',
+        (data) => this.selector.$current.text(data)
+    );
   }
 
   toHTML() {

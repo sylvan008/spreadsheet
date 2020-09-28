@@ -2,24 +2,24 @@ import Component from '@core/Component';
 
 class Formula extends Component {
   /**
-   *
+   * @class Formula
+   * @extends Component
    * @param {DOMHelper} $root
+   * @param {object} options
    */
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input', 'click'],
+      listeners: ['input'],
+      ...options,
     });
   }
 
   static className = 'formula__wrapper';
 
   onInput(event) {
+    this.emitter.emit('updateFormula', event.target.innerText);
     console.log('Formula input: ', event.target.textContent);
-  }
-
-  onClick(event) {
-    console.log('Formula click: ', event);
   }
 
   toHTML() {
