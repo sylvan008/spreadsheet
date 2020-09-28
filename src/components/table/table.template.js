@@ -32,11 +32,21 @@ function toColumn(col, index) {
   `;
 }
 
-function toCell(content = '', index) {
-  return `
-    <div class="cell" tabindex="0" contenteditable data-col-index="${index}">
-      ${content}
-    </div>`;
+function toCell(row) {
+  return function(content = '', index) {
+    return `
+      <div
+        class="cell"
+        tabindex="0"
+        role="textbox"
+        aria-multiline="true"
+        contenteditable
+        data-type="cell"
+        data-col-index="${index}"
+        data-id="${row}:${index}">
+        ${content}
+      </div>`;
+  };
 }
 
 export function createTable(rowsCount = 30) {
@@ -49,15 +59,14 @@ export function createTable(rowsCount = 30) {
       .map(toColumn)
       .join('');
 
-  const cells = new Array(colsCount)
-      .fill('')
-      .map(toCell)
-      .join('');
-
   rows.push(createRow(cols));
 
-  for (let i = 0; i < rowsCount; i++) {
-    rows.push(createRow(cells, i + 1));
+  for (let row = 0; row < rowsCount; row++) {
+    const cells = new Array(colsCount)
+        .fill('')
+        .map(toCell(row))
+        .join('');
+    rows.push(createRow(cells, row + 1));
   }
 
   return rows.join('');

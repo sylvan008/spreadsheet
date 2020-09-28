@@ -38,6 +38,10 @@ class DOMHelper {
     return undefined;
   }
 
+  blur() {
+    this.$nativeElement.blur();
+  }
+
   /**
    * @method children
    * @param {string} selector
@@ -61,6 +65,14 @@ class DOMHelper {
       return this;
     }
     return this.$nativeElement.classList;
+  }
+
+  /**
+   * @method addClass
+   * @param {string} className
+   */
+  addClass(className) {
+    this.$nativeElement.classList.add(className);
   }
 
   /**
@@ -92,12 +104,26 @@ class DOMHelper {
   }
 
   /**
+   * @method find
+   * @param {string} selector
+   * @return {DOMHelper|HTMLElement}
+   */
+  find(selector) {
+    return $(this.$nativeElement.querySelector(selector));
+  }
+
+  /**
    * @method findAll
    * @param {string} selector
    * @return {HTMLElement[]}
    */
   findAll(selector) {
     return [...this.$nativeElement.querySelectorAll(selector)];
+  }
+
+  focus() {
+    this.$nativeElement.focus();
+    return this;
   }
 
   /**
@@ -122,6 +148,23 @@ class DOMHelper {
   }
 
   /**
+   * @method dataId
+   * @param {boolean} parse
+   * @return {string|{col: number, row: number}}
+   */
+  dataId(parse = false) {
+    const {id} = this.$nativeElement.dataset;
+    if (parse) {
+      const [row, col] = id.split(':');
+      return {
+        row: +row,
+        col: +col,
+      };
+    }
+    return id;
+  }
+
+  /**
    * @method index
    * @param {string|HTMLElement} prop
    * @return {number}
@@ -135,6 +178,14 @@ class DOMHelper {
       }
     }
     return -1;
+  }
+
+  /**
+   * @method nextSibling
+   * @return {DOMHelper|HTMLElement}
+   */
+  nextSibling() {
+    return $(this.$nativeElement.nextElementSibling);
   }
 
   /**
@@ -157,6 +208,22 @@ class DOMHelper {
   of(event, callback) {
     this.$nativeElement.removeEventListener(event, callback);
     return this;
+  }
+
+  /**
+   * @method previousSibling
+   * @return {DOMHelper|HTMLElement}
+   */
+  previousSibling() {
+    return $(this.$nativeElement.previousElementSibling);
+  }
+
+  /**
+   * @method removeClass
+   * @param {string} className
+   */
+  removeClass(className) {
+    this.$nativeElement.classList.remove(className);
   }
 }
 
