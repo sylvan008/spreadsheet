@@ -33,6 +33,10 @@ class Excel {
       Component.init();
     });
   }
+
+  destroy() {
+    this.components.forEach(component => component.destroy());
+  }
 }
 
 export default Excel;

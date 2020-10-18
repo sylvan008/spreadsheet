@@ -4,7 +4,7 @@ import {createTable} from '@/components/table/table.template';
 import tableResize from './table.resize';
 import {isCell, shouldResize, matrix, nextSelector} from './table.helpers';
 import TableSelector from '@/components/table/TableSelector';
-import {keysKeyboard} from '@core/keys';
+import {keysKeyboard, events} from '@core/keys';
 
 /**
  * @class Table
@@ -32,10 +32,8 @@ export default class Table extends Component {
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selector.select($cell);
 
-    this.emitter.subscribe(
-        'updateFormula',
-        (data) => this.selector.$current.text(data)
-    );
+    this.$on('updateFormula', (data) => this.selector.$current.text(data));
+    this.$on(events.FORMULA_ENTER, () => this.selector.$current.focus());
   }
 
   toHTML() {

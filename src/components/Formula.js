@@ -1,4 +1,5 @@
 import Component from '@core/Component';
+import {keysKeyboard, events} from '@core/keys';
 
 class Formula extends Component {
   /**
@@ -10,7 +11,7 @@ class Formula extends Component {
   constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input'],
+      listeners: ['input', 'keydown'],
       ...options,
     });
   }
@@ -18,8 +19,18 @@ class Formula extends Component {
   static className = 'formula__wrapper';
 
   onInput(event) {
-    this.emitter.emit('updateFormula', event.target.innerText);
-    console.log('Formula input: ', event.target.textContent);
+    this.$emit('updateFormula', event.target.innerText);
+  }
+
+  onKeydown(event) {
+    this._isEnterKeydown(event);
+  }
+
+  _isEnterKeydown(event) {
+    if (event.key === keysKeyboard.ENTER) {
+      event.preventDefault();
+      this.$emit(events.FORMULA_ENTER);
+    }
   }
 
   toHTML() {
