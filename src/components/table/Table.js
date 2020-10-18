@@ -16,7 +16,7 @@ export default class Table extends Component {
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'input'],
       ...options,
     });
     this.tableClassName = 'spreadsheet__table';
@@ -42,6 +42,10 @@ export default class Table extends Component {
         ${createTable(50)}
       </div>
     `;
+  }
+
+  onInput(event) {
+    this.$emit(events.CELL_INPUT, event.target.textContent);
   }
 
   onMousedown(event) {
@@ -76,6 +80,7 @@ export default class Table extends Component {
         const id = this.selector.$current.dataId(true);
         const $nextCell = this.$root.find(nextSelector(key, id));
         this.selector.select($nextCell);
+        this.$emit(events.CELL_FOCUSED, this.selector.$current.text());
       }
     }
   }

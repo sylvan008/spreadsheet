@@ -231,11 +231,15 @@ class DOMHelper {
    * @param {string} text
    * @return {string}
    */
-  text(text = '') {
-    if (!text) {
-      return this.$nativeElement.innerText;
+  text(text) {
+    if (typeof text === 'string') {
+      this.$nativeElement.textContent = text;
+      return this;
     }
-    this.$nativeElement.innerText = text;
+    if (this.$nativeElement.tagName.toLocaleLowerCase() === 'input') {
+      return this.$nativeElement.value().trim();
+    }
+    return this.$nativeElement.textContent.trim();
   }
 }
 

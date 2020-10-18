@@ -10,4 +10,6 @@ export const keysKeyboard = {
 export const events = {
   'FORMULA_INPUT': 'formula:input',
   'FORMULA_ENTER': 'formula:enter',
+  'CELL_INPUT': 'cell:input',
+  'CELL_FOCUSED': 'cell:focused',
 };

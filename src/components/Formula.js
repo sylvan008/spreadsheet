@@ -14,12 +14,21 @@ class Formula extends Component {
       listeners: ['input', 'keydown'],
       ...options,
     });
+    this._updateFormulaInput = this._updateFormulaInput.bind(this);
+    this.init();
   }
 
   static className = 'formula__wrapper';
 
+  init() {
+    super.init();
+    this.inputField = this.$root.find('[contenteditable]');
+    this.$on(events.CELL_INPUT, this._updateFormulaInput);
+    this.$on(events.CELL_FOCUSED, this._updateFormulaInput);
+  }
+
   onInput(event) {
-    this.$emit('updateFormula', event.target.innerText);
+    this.$emit('updateFormula', event.target.textContent);
   }
 
   onKeydown(event) {
@@ -31,6 +40,9 @@ class Formula extends Component {
       event.preventDefault();
       this.$emit(events.FORMULA_ENTER);
     }
+  }
+  _updateFormulaInput(text = '') {
+    this.inputField.text(text);
   }
 
   toHTML() {
