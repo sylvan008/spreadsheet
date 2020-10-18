@@ -1,8 +1,17 @@
 import Component from '@core/Component';
 
+/**
+ * @class Toolbar
+ * @extends Component
+ * @param {DOMHelper} $root
+ * @param {object} options
+ */
 class Toolbar extends Component {
-  constructor($root) {
-    super($root);
+  constructor($root, options) {
+    super($root, {
+      name: 'Tollbar',
+      ...options,
+    });
   }
 
   static className = 'toolbar__wrapper';

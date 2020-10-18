@@ -4,13 +4,20 @@ import {createTable} from '@/components/table/table.template';
 import tableResize from './table.resize';
 import {isCell, shouldResize, matrix, nextSelector} from './table.helpers';
 import TableSelector from '@/components/table/TableSelector';
-import {keysKeyboard} from '@core/keys';
+import {keysKeyboard, events} from '@core/keys';
 
+/**
+ * @class Table
+ * @extends Component
+ * @param {DOMHelper} $root
+ * @param {object} options
+ */
 export default class Table extends Component {
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'input'],
+      ...options,
     });
     this.tableClassName = 'spreadsheet__table';
   }
@@ -24,6 +31,9 @@ export default class Table extends Component {
     super.init();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selector.select($cell);
+
+    this.$on('updateFormula', (data) => this.selector.$current.text(data));
+    this.$on(events.FORMULA_ENTER, () => this.selector.$current.focus());
   }
 
   toHTML() {
@@ -32,6 +42,10 @@ export default class Table extends Component {
         ${createTable(50)}
       </div>
     `;
+  }
+
+  onInput(event) {
+    this.$emit(events.CELL_INPUT, event.target.textContent);
   }
 
   onMousedown(event) {
@@ -66,6 +80,7 @@ export default class Table extends Component {
         const id = this.selector.$current.dataId(true);
         const $nextCell = this.$root.find(nextSelector(key, id));
         this.selector.select($nextCell);
+        this.$emit(events.CELL_FOCUSED, this.selector.$current.text());
       }
     }
   }

@@ -6,3 +6,10 @@ export const keysKeyboard = {
   ARROW_UP: 'ArrowUp',
   ARROW_DOWN: 'ArrowDown',
 };
+
+export const events = {
+  'FORMULA_INPUT': 'formula:input',
+  'FORMULA_ENTER': 'formula:enter',
+  'CELL_INPUT': 'cell:input',
+  'CELL_FOCUSED': 'cell:focused',
+};

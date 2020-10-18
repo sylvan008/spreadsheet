@@ -1,8 +1,17 @@
 import Component from '@core/Component';
 
+/**
+ * @class Header
+ * @extends Component
+ * @param {DOMHelper} $root
+ * @param {object} options
+ */
 class Header extends Component {
-  constructor($root) {
-    super($root);
+  constructor($root, options) {
+    super($root, {
+      name: 'Header',
+      ...options,
+    });
   }
 
   static className = 'header__wrapper';

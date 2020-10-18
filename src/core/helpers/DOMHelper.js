@@ -225,6 +225,22 @@ class DOMHelper {
   removeClass(className) {
     this.$nativeElement.classList.remove(className);
   }
+
+  /**
+   * @method text
+   * @param {string} text
+   * @return {string}
+   */
+  text(text) {
+    if (typeof text === 'string') {
+      this.$nativeElement.textContent = text;
+      return this;
+    }
+    if (this.$nativeElement.tagName.toLocaleLowerCase() === 'input') {
+      return this.$nativeElement.value().trim();
+    }
+    return this.$nativeElement.textContent.trim();
+  }
 }
 
 /**
